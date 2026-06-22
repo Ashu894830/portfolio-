@@ -12,7 +12,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0D0D0D;
-  --paper:#F5F2EE;
+  --paper:#F8E8F2;
   --paper2:#EDEAE4;
   --lime:#CAFF33;
   --lime2:#B8F000;
@@ -29,6 +29,34 @@ body{
   background:var(--paper);color:var(--ink);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+}
+  .shape{
+position:fixed;
+background:rgba(255,150,180,0.15);
+border-radius:50px;
+z-index:-1;
+filter:blur(2px);
+}
+
+.s1{
+width:220px;
+height:220px;
+top:180px;
+right:180px;
+}
+
+.s2{
+width:180px;
+height:350px;
+top:320px;
+right:80px;
+}
+
+.s3{
+width:320px;
+height:140px;
+bottom:120px;
+right:30px;
 }
 /* noise texture overlay */
 body::before{
@@ -102,11 +130,29 @@ nav{
 }
 .hero-eyebrow::before{content:'◆';font-size:8px;color:var(--lime2)}
 .hero-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(5rem,13vw,11rem);
-  line-height:0.9;letter-spacing:-0.01em;color:var(--ink);
-  margin-bottom:1.5rem;display:block;
+  .modern-hero h1{
+font-size:clamp(3rem,8vw,6rem);
+line-height:1;
+font-weight:800;
+color:#111;
+margin:20px 0;
 }
+
+.hero-badge{
+display:inline-block;
+padding:12px 25px;
+border-radius:50px;
+background:linear-gradient(90deg,#ff9966,#ff5e9a);
+color:white;
+font-weight:700;
+margin-bottom:20px;
+}
+
+.modern-hero p{
+font-size:20px;
+color:#666;
+line-height:1.7;
+}}
 .hero-name .outline{
   -webkit-text-stroke:2px var(--ink);
   color:transparent;display:block;
@@ -520,13 +566,32 @@ right:-10px;
 </div>
 
 <!-- HERO -->
+  <div class="shape s1"></div>
+<div class="shape s2"></div>
+<div class="shape s3"></div>
 <section class="hero" id="home">
   <div class="hero-inner">
     <div class="hero-left rv">
       <div class="hero-eyebrow">MBA Candidate · B.Tech CSE · Ghaziabad, India</div>
       <span class="hero-name">
-        <span class="filled">ASHUTOSH</span>
-        <span class="outline">YADAV</span>
+        <div class="modern-hero">
+
+<div class="hero-badge">
+👋 HI, I'M ASHUTOSH YADAV
+</div>
+
+<h1>
+Turning Data Into
+Business Decisions
+With Analytics &
+Marketing
+</h1>
+
+<p>
+MBA Candidate | Data Analyst | Digital Marketer
+</p>
+
+</div>
       </span>
       <div class="hero-tags">
         <span class="hero-tag active">Data Analytics</span>
