@@ -130,14 +130,34 @@ nav{
 }
 .hero-eyebrow::before{content:'◆';font-size:8px;color:var(--lime2)}
 .hero-name{
-  .modern-hero h1{
-font-size:clamp(3rem,8vw,6rem);
+font-size:clamp(3rem,8vw,7rem);
+line-height:0.9;
+font-family:'Bebas Neue',sans-serif;
+font-weight:700;
+}
+  #typing-text{
+font-family:'Bebas Neue',sans-serif;
+font-size:clamp(3rem,8vw,7rem);
+font-weight:700;
 line-height:1;
-font-weight:800;
-color:#111;
-margin:20px 0;
+display:block;
+max-width:700px;
 }
 
+.cursor{
+display:inline-block;
+width:3px;
+height:1em;
+background:#000;
+animation:blink .8s infinite;
+margin-left:4px;
+}
+
+@keyframes blink{
+50%{
+opacity:0;
+}
+}
 .hero-badge{
 display:inline-block;
 padding:12px 25px;
@@ -433,8 +453,8 @@ footer{
 
 .profile-circle-wrap{
 position:relative;
-width:420px;
-height:420px;
+width:300px;
+height:300px;
 margin:auto;
 }
 
@@ -457,19 +477,18 @@ object-fit:cover;
 
 .circle-ring{
 position:absolute;
-top:-10px;
-left:-10px;
-width:440px;
-height:440px;
+top:-15px;
+left:-15px;
+width:330px;
+height:330px;
 border-radius:50%;
 border:3px dashed #CAFF33;
 animation:rotateRing 12s linear infinite;
 }
-
 .work-badge{
 position:absolute;
-bottom:25px;
-right:-20px;
+bottom:10px;
+right:-10px;
 background:#111;
 color:#CAFF33;
 padding:12px 28px;
@@ -492,19 +511,20 @@ transform:rotate(360deg);
 @media(max-width:768px){
 
 .profile-circle-wrap{
-width:280px;
-height:280px;
+width:240px;
+height:240px;
 }
 
 .circle-ring{
-width:300px;
-height:300px;
+width:260px;
+height:260px;
 }
 
 .work-badge{
-font-size:12px;
-padding:8px 15px;
-right:-10px;
+font-size:10px;
+padding:6px 12px;
+right:-5px;
+bottom:8px;
 }
 
 }
@@ -573,23 +593,21 @@ right:-10px;
   <div class="hero-inner">
     <div class="hero-left rv">
       <div class="hero-eyebrow">MBA Candidate · B.Tech CSE · Ghaziabad, India</div>
-      <span class="hero-name">
-        <div class="modern-hero">
+      <div class="modern-hero">
 
 <div class="hero-badge">
 👋 HI, I'M ASHUTOSH YADAV
 </div>
 
 <h1>
-Turning Data Into
-Business Decisions
-With Analytics &
-Marketing
+<span id="typing-text"></span><span class="cursor"></span>
 </h1>
 
 <p>
-MBA Candidate | Data Analyst | Digital Marketer
+MBA student with a B.Tech in Computer Science. I bridge technical depth in Data Analytics, AI/ML, Python and Marketing Strategy to solve business problems.
 </p>
+
+</div>
 
 </div>
       </span>
@@ -929,7 +947,19 @@ function handleSend(e){
     document.getElementById('fSuccess').style.display='block';
   },1200);
 }
+const text = "Turning Data Into Business Decisions With Analytics & Marketing";
 
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing-text").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+
+window.addEventListener("load", typeWriter);
 // PROJECT ROW CLICK (placeholder)
 document.querySelectorAll('.proj-row').forEach(row=>{
   row.addEventListener('click',()=>{});
