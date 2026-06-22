@@ -380,6 +380,20 @@ footer{
 .rd1{transition-delay:0.1s}.rd2{transition-delay:0.2s}.rd3{transition-delay:0.3s}
 
 @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}}
+  .profile-image-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:1rem;
+}
+
+.profile-image-card img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+    display:block;
+}
 </style>
 </head>
 <body>
@@ -430,6 +444,11 @@ footer{
       </div>
     </div>
     <div class="hero-right rv rd1">
+      <div class="hero-right rv rd1">
+    <div class="profile-image-card">
+        <img src="profile.jpeg" alt="Ashutosh Yadav">
+    </div>
+    <div class="hero-desc-card">
       <div class="hero-desc-card">
         MBA student with a <strong>B.Tech in Computer Science</strong>. I bridge technical depth in <strong>data analytics, Python, and AI/ML</strong> with sharp marketing strategy to deliver real, measurable business growth.
       </div>
