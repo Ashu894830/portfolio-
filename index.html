@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ashutosh Yadav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D0D0D;
+  --paper:#F5F2EE;
+  --paper2:#EDEAE4;
+  --lime:#CAFF33;
+  --lime2:#B8F000;
+  --warm:#E8E0D5;
+  --muted:#7A7670;
+  --border:#D4CFC8;
+  --white:#FFFFFF;
+  --r:6px;
+  --t:0.35s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* noise texture overlay */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  opacity:0.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1.5rem,4vw,3.5rem);height:60px;
+  background:rgba(245,242,238,0.88);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:0.08em;color:var(--ink);text-decoration:none;
+}
+.nav-logo em{color:var(--lime2);font-style:normal;
+  -webkit-text-stroke:0px;
+}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:12px;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color var(--t);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-pill{
+  background:var(--ink)!important;color:var(--lime)!important;
+  padding:7px 18px;border-radius:50px;letter-spacing:0.06em;
+  transition:background var(--t),transform var(--t)!important;
+}
+.nav-pill:hover{background:#333!important;transform:scale(1.04)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:var(--t)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mob-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--border);padding:1.5rem clamp(1.5rem,4vw,3.5rem);z-index:99;flex-direction:column;gap:1.2rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:0.04em}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{background:var(--ink);overflow:hidden;padding:14px 0;border-top:2px solid var(--lime);border-bottom:2px solid var(--lime)}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.1em;
+  color:var(--paper);padding:0 2rem;white-space:nowrap;display:flex;align-items:center;gap:2rem;
+}
+.marquee-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);display:inline-block;flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;padding:0 clamp(1.5rem,4vw,3.5rem);padding-top:60px;
+  display:grid;grid-template-rows:1fr auto;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;padding:4rem 0 3rem;
+}
+@media(max-width:860px){.hero-inner{grid-template-columns:1fr;gap:2rem}}
+.hero-left{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:2rem;
+}
+.hero-eyebrow::before{content:'◆';font-size:8px;color:var(--lime2)}
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,13vw,11rem);
+  line-height:0.9;letter-spacing:-0.01em;color:var(--ink);
+  margin-bottom:1.5rem;display:block;
+}
+.hero-name .outline{
+  -webkit-text-stroke:2px var(--ink);
+  color:transparent;display:block;
+}
+.hero-name .filled{color:var(--ink);display:block}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.5rem}
+.hero-tag{
+  font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  background:var(--warm);border:1px solid var(--border);
+  border-radius:50px;padding:6px 14px;color:var(--muted);
+}
+.hero-tag.active{background:var(--lime);border-color:var(--lime2);color:var(--ink)}
+.hero-cta-row{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-main{
+  background:var(--ink);color:var(--lime);
+  font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  padding:14px 28px;border-radius:50px;border:none;
+  text-decoration:none;cursor:pointer;display:inline-block;
+  transition:background var(--t),transform var(--t);
+}
+.btn-main:hover{background:#222;transform:translateY(-2px)}
+.btn-sec{
+  font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  border-bottom:2px solid var(--ink);padding-bottom:2px;
+  transition:color var(--t),border-color var(--t);
+}
+.btn-sec:hover{color:var(--muted);border-color:var(--border)}
+.hero-right{display:flex;flex-direction:column;gap:2rem}
+.hero-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;padding:1.75rem;
+  transition:transform var(--t),box-shadow var(--t);
+}
+.hero-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.08)}
+.hero-card-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem}
+.hero-card-val{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--ink);line-height:1;margin-bottom:4px}
+.hero-card-val span{color:var(--lime2)}
+.hero-card-sub{font-size:13px;color:var(--muted)}
+.hero-cards-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.hero-card-sm{
+  background:var(--warm);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem;text-align:center;
+}
+.hero-card-sm-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--ink);line-height:1}
+.hero-card-sm-n span{color:var(--lime2)}
+.hero-card-sm-l{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-desc-card{
+  background:var(--ink);border-radius:16px;padding:1.75rem;
+  font-size:14px;color:rgba(245,242,238,0.7);line-height:1.8;
+}
+.hero-desc-card strong{color:var(--lime)}
+
+/* ─── ABOUT ─── */
+#about{background:var(--paper2);padding:6rem clamp(1.5rem,4vw,3.5rem)}
+.about-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;gap:2rem;flex-wrap:wrap}
+.about-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);
+  line-height:0.95;letter-spacing:-0.01em;color:var(--ink);
+}
+.about-big .sub-text{font-size:clamp(1rem,2vw,1.5rem);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;color:var(--muted);letter-spacing:0;display:block;margin-top:0.5rem}
+.about-p{font-size:15px;color:var(--muted);line-height:1.85;max-width:360px}
+.about-p strong{color:var(--ink);font-weight:700}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:2.5rem}.about-header{flex-direction:column;align-items:flex-start}}
+.skills-block{}
+.sk-group{margin-bottom:2.5rem}
+.sk-label{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.sk-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.sk-pills{display:flex;flex-wrap:wrap;gap:8px}
+.sk-pill{
+  font-size:12px;font-weight:600;padding:7px 16px;border-radius:50px;
+  border:1.5px solid var(--border);color:var(--ink);background:var(--white);
+  transition:all var(--t);cursor:default;
+}
+.sk-pill:hover,.sk-pill.prime{background:var(--ink);color:var(--lime);border-color:var(--ink)}
+.info-cards{display:grid;grid-template-columns:1fr;gap:1rem}
+.info-card{
+  background:var(--white);border:1px solid var(--border);border-radius:12px;
+  padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
+  transition:transform var(--t);
+}
+.info-card:hover{transform:translateX(4px)}
+.ic-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:var(--ink);color:var(--lime);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+}
+.ic-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.ic-val{font-size:14px;font-weight:700;color:var(--ink)}
+
+/* ─── PROJECTS ─── */
+#projects{padding:6rem clamp(1.5rem,4vw,3.5rem);background:var(--ink)}
+#projects .section-label{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--lime);margin-bottom:1rem}
+.projects-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,6rem);color:var(--paper);
+  line-height:0.95;letter-spacing:-0.01em;margin-bottom:3.5rem;
+}
+.proj-list{display:flex;flex-direction:column;gap:0}
+.proj-row{
+  display:grid;grid-template-columns:80px 1fr auto;align-items:center;
+  gap:2rem;padding:2rem 0;border-bottom:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;transition:background var(--t);border-radius:8px;
+  padding-left:1rem;padding-right:1rem;margin:0 -1rem;
+}
+.proj-row:hover{background:rgba(202,255,51,0.05)}
+.proj-row:hover .proj-num{color:var(--lime)}
+.proj-row:hover .proj-arrow{transform:rotate(-45deg)}
+.proj-num{
+  font-family:'Bebas Neue',sans-serif;font-size:2.5rem;
+  color:rgba(255,255,255,0.15);line-height:1;
+  transition:color var(--t);
+}
+.proj-middle{}
+.proj-type-tag{
+  font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--lime);margin-bottom:6px;
+}
+.proj-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:1.2rem;font-weight:700;color:var(--paper);margin-bottom:6px;
+}
+.proj-desc{font-size:13px;color:rgba(245,242,238,0.45);line-height:1.6;max-width:560px}
+.proj-tech-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.proj-tech-tag{
+  font-size:10px;font-weight:600;padding:3px 10px;border-radius:50px;
+  background:rgba(202,255,51,0.1);border:1px solid rgba(202,255,51,0.2);color:var(--lime);
+}
+.proj-arrow{
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:rgba(255,255,255,0.5);font-size:1.25rem;
+  transition:transform var(--t),border-color var(--t),color var(--t);
+}
+.proj-row:hover .proj-arrow{border-color:var(--lime);color:var(--lime)}
+@media(max-width:640px){.proj-row{grid-template-columns:50px 1fr}.proj-arrow{display:none}}
+
+/* ─── EXPERIENCE ─── */
+#experience{padding:6rem clamp(1.5rem,4vw,3.5rem);background:var(--paper)}
+.exp-header{margin-bottom:4rem}
+.exp-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7rem);color:var(--ink);line-height:0.95;letter-spacing:-0.01em}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:900px}
+@media(max-width:768px){.exp-grid{grid-template-columns:1fr}}
+.exp-card{
+  background:var(--white);border:1px solid var(--border);border-radius:16px;
+  padding:2rem;position:relative;overflow:hidden;
+  transition:transform var(--t),box-shadow var(--t);
+}
+.exp-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.07)}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lime2),transparent)}
+.exp-card-date{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+.exp-card-date-badge{background:var(--lime);color:var(--ink);font-size:9px;font-weight:800;letter-spacing:0.08em;padding:3px 9px;border-radius:50px}
+.exp-card h3{font-size:1.05rem;font-weight:800;color:var(--ink);margin-bottom:4px}
+.exp-card .org{font-size:13px;color:var(--muted);margin-bottom:1rem;font-weight:600}
+.exp-card p{font-size:13px;color:#777070;line-height:1.7}
+
+/* ─── EDUCATION ─── */
+#education{padding:6rem clamp(1.5rem,4vw,3.5rem);background:var(--ink)}
+.edu-header-row{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap}
+.edu-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);color:var(--paper);line-height:0.95;letter-spacing:-0.01em}
+.edu-note{font-size:13px;color:rgba(245,242,238,0.4);max-width:260px;line-height:1.7}
+.edu-timeline{display:flex;flex-direction:column;gap:0}
+.edu-row{
+  display:grid;grid-template-columns:140px 1fr;gap:2rem;
+  border-top:1px solid rgba(255,255,255,0.08);padding:2rem 0;
+  align-items:start;
+}
+.edu-year{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:rgba(245,242,238,0.25);line-height:1}
+.edu-right h3{font-size:1.05rem;font-weight:700;color:var(--paper);margin-bottom:4px}
+.edu-right .uni{font-size:13px;color:rgba(245,242,238,0.4);margin-bottom:0.75rem}
+.edu-badge{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  background:rgba(202,255,51,0.12);border:1px solid rgba(202,255,51,0.25);border-radius:50px;
+  padding:4px 12px;color:var(--lime);
+}
+@media(max-width:560px){.edu-row{grid-template-columns:1fr}.edu-year{font-size:1.1rem}}
+
+/* ─── ACHIEVEMENTS ─── */
+#achievements{padding:6rem clamp(1.5rem,4vw,3.5rem);background:var(--paper2)}
+.ach-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);color:var(--ink);line-height:0.95;letter-spacing:-0.01em;margin-bottom:3.5rem}
+.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1000px}
+@media(max-width:768px){.ach-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ach-grid{grid-template-columns:1fr}}
+.ach-card{
+  background:var(--white);border:1px solid var(--border);border-radius:14px;
+  padding:1.5rem;transition:transform var(--t),border-color var(--t);
+}
+.ach-card:hover{transform:translateY(-3px);border-color:var(--lime2)}
+.ach-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--ink);display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1rem;
+}
+.ach-card h4{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.ach-card p{font-size:12.5px;color:var(--muted);line-height:1.55}
+
+/* ─── CONTACT ─── */
+#contact{padding:6rem clamp(1.5rem,4vw,3.5rem);background:var(--paper)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+@media(max-width:768px){.contact-layout{grid-template-columns:1fr;gap:3rem}}
+.contact-left{}
+.contact-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7rem);color:var(--ink);line-height:0.95;letter-spacing:-0.01em;margin-bottom:1.5rem}
+.contact-big .lime{color:var(--lime2);-webkit-text-stroke:0px}
+.contact-sub{font-size:15px;color:var(--muted);margin-bottom:2.5rem;line-height:1.8;max-width:400px}
+.c-pill-links{display:flex;flex-direction:column;gap:0.875rem}
+.c-pill{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;border-radius:12px;
+  border:1px solid var(--border);background:var(--paper2);
+  text-decoration:none;color:var(--ink);
+  transition:all var(--t);font-size:13.5px;font-weight:600;
+}
+.c-pill:hover{background:var(--ink);color:var(--lime);border-color:var(--ink);transform:translateX(4px)}
+.c-pill-ico{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--ink);color:var(--lime);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:1rem;transition:background var(--t),color var(--t);
+}
+.c-pill:hover .c-pill-ico{background:var(--lime);color:var(--ink)}
+.c-pill-text{}
+.c-pill-sublabel{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.c-pill:hover .c-pill-sublabel{color:rgba(202,255,51,0.7)}
+.contact-form-wrap{}
+.c-form{display:flex;flex-direction:column;gap:1.25rem}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:480px){.f-row{grid-template-columns:1fr}}
+.f-grp{display:flex;flex-direction:column;gap:6px}
+.f-grp label{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.f-grp input,.f-grp textarea,.f-grp select{
+  background:var(--paper2);border:1.5px solid var(--border);
+  border-radius:8px;padding:12px 16px;
+  font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--ink);outline:none;resize:vertical;
+  transition:border-color var(--t),box-shadow var(--t);
+  -webkit-appearance:none;
+}
+.f-grp input::placeholder,.f-grp textarea::placeholder{color:var(--muted)}
+.f-grp input:focus,.f-grp textarea:focus,.f-grp select:focus{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(0,0,0,0.06);
+}
+.f-grp textarea{min-height:130px}
+.f-submit{
+  background:var(--ink);color:var(--lime);
+  font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  padding:15px 32px;border-radius:50px;border:none;cursor:pointer;
+  width:100%;transition:background var(--t),transform var(--t);
+}
+.f-submit:hover{background:#222;transform:translateY(-2px)}
+.f-success{
+  display:none;background:var(--lime);border-radius:8px;
+  padding:14px 20px;font-size:14px;font-weight:700;color:var(--ink);text-align:center;
+}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);padding:2rem clamp(1.5rem,4vw,3.5rem);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:2px solid var(--lime);
+}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.1em;color:var(--paper)}
+.footer-brand span{color:var(--lime)}
+.footer-note{font-size:11px;color:rgba(245,242,238,0.35);letter-spacing:0.06em;text-transform:uppercase}
+
+/* ─── REVEAL ─── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.rv.vis{opacity:1;transform:none}
+.rd1{transition-delay:0.1s}.rd2{transition-delay:0.2s}.rd3{transition-delay:0.3s}
+
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">AY<em>.</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-pill">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mob">
+  <a href="#about">About</a><a href="#projects">Work</a>
+  <a href="#experience">Experience</a><a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" style="margin-top:60px">
+  <div class="marquee-track" id="mq"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-left rv">
+      <div class="hero-eyebrow">MBA Candidate · B.Tech CSE · Ghaziabad, India</div>
+      <span class="hero-name">
+        <span class="filled">ASHUTOSH</span>
+        <span class="outline">YADAV</span>
+      </span>
+      <div class="hero-tags">
+        <span class="hero-tag active">Data Analytics</span>
+        <span class="hero-tag active">AI / ML</span>
+        <span class="hero-tag">Digital Marketing</span>
+        <span class="hero-tag">AWS Cloud</span>
+        <span class="hero-tag">Python</span>
+        <span class="hero-tag">Power BI</span>
+      </div>
+      <div class="hero-cta-row">
+        <a href="#projects" class="btn-main">See My Work</a>
+        <a href="#contact" class="btn-sec">Get In Touch ↗</a>
+      </div>
+    </div>
+    <div class="hero-right rv rd1">
+      <div class="hero-desc-card">
+        MBA student with a <strong>B.Tech in Computer Science</strong>. I bridge technical depth in <strong>data analytics, Python, and AI/ML</strong> with sharp marketing strategy to deliver real, measurable business growth.
+      </div>
+      <div class="hero-cards-row">
+        <div class="hero-card-sm">
+          <div class="hero-card-sm-n">5<span>+</span></div>
+          <div class="hero-card-sm-l">Internships</div>
+        </div>
+        <div class="hero-card-sm">
+          <div class="hero-card-sm-n">5</div>
+          <div class="hero-card-sm-l">Projects Built</div>
+        </div>
+        <div class="hero-card-sm">
+          <div class="hero-card-sm-n">7<span>+</span></div>
+          <div class="hero-card-sm-l">Certificates</div>
+        </div>
+        <div class="hero-card-sm">
+          <div class="hero-card-sm-n">2</div>
+          <div class="hero-card-sm-l">Degrees</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-header rv">
+    <div>
+      <div class="about-big">ABOUT ME<span class="sub-text">Engineer turned Business Strategist</span></div>
+    </div>
+    <p class="about-p">I'm passionate about using <strong>technology to solve real business problems</strong> and creating measurable customer impact. My rare combination of CSE and MBA lets me think in data and speak in strategy.</p>
+  </div>
+  <div class="about-grid">
+    <div class="skills-block rv">
+      <div class="sk-group">
+        <div class="sk-label">Technical</div>
+        <div class="sk-pills">
+          <span class="sk-pill prime">Python</span>
+          <span class="sk-pill prime">Power BI</span>
+          <span class="sk-pill prime">AWS</span>
+          <span class="sk-pill">MSSQL</span>
+          <span class="sk-pill">Excel (Advanced)</span>
+          <span class="sk-pill">AI / ML Basics</span>
+          <span class="sk-pill">Data Analytics</span>
+          <span class="sk-pill">Data Visualization</span>
+        </div>
+      </div>
+      <div class="sk-group">
+        <div class="sk-label">Business & Marketing</div>
+        <div class="sk-pills">
+          <span class="sk-pill prime">Digital Marketing</span>
+          <span class="sk-pill prime">Market Analytics</span>
+          <span class="sk-pill">Brand Marketing</span>
+          <span class="sk-pill">HR Operations</span>
+          <span class="sk-pill">Growth Strategy</span>
+          <span class="sk-pill">Template Design</span>
+        </div>
+      </div>
+      <div class="sk-group">
+        <div class="sk-label">Soft Skills</div>
+        <div class="sk-pills">
+          <span class="sk-pill">Leadership</span>
+          <span class="sk-pill">Teamwork</span>
+          <span class="sk-pill">Critical Thinking</span>
+          <span class="sk-pill">Communication</span>
+          <span class="sk-pill">Time Management</span>
+        </div>
+      </div>
+    </div>
+    <div class="info-cards rv rd1">
+      <div class="info-card"><div class="ic-icon">🎓</div><div><div class="ic-label">Current Degree</div><div class="ic-val">MBA — IT & Marketing, AKTU Lucknow</div></div></div>
+      <div class="info-card"><div class="ic-icon">💻</div><div><div class="ic-label">Foundation</div><div class="ic-val">B.Tech — Computer Science, AKTU</div></div></div>
+      <div class="info-card"><div class="ic-icon">📍</div><div><div class="ic-label">Location</div><div class="ic-val">Vasundhra, Ghaziabad · Open to Remote</div></div></div>
+      <div class="info-card"><div class="ic-icon">📧</div><div><div class="ic-label">Email</div><div class="ic-val">ashutoshy8001@gmail.com</div></div></div>
+      <div class="info-card"><div class="ic-icon">📞</div><div><div class="ic-label">Phone</div><div class="ic-val">+91 8948308001</div></div></div>
+      <div class="info-card"><div class="ic-icon">🌐</div><div><div class="ic-label">Languages</div><div class="ic-val">English · Hindi</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label rv">Selected Work</div>
+  <div class="projects-title rv">PROJECTS &amp;<br>CASE STUDIES</div>
+  <div class="proj-list rv">
+
+    <div class="proj-row">
+      <div class="proj-num">01</div>
+      <div class="proj-middle">
+        <div class="proj-type-tag">Data Science · Major Project</div>
+        <div class="proj-title">Movie Recommendation System</div>
+        <div class="proj-desc">Finds movie names from basic input details using data analysis, similarity metrics, and collaborative filtering on large datasets. Achieved accurate recommendations with clean Python pipelines.</div>
+        <div class="proj-tech-wrap"><span class="proj-tech-tag">Python</span><span class="proj-tech-tag">Pandas</span><span class="proj-tech-tag">Scikit-learn</span><span class="proj-tech-tag">NumPy</span></div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="proj-num">02</div>
+      <div class="proj-middle">
+        <div class="proj-type-tag">AI / ML · Research Paper</div>
+        <div class="proj-title">Biomedical Image Segmentation</div>
+        <div class="proj-desc">Research-based project applying image segmentation to biomedical data. Used ML models to predict medical outcomes from image inputs — contributing to healthcare analytics and diagnosis support.</div>
+        <div class="proj-tech-wrap"><span class="proj-tech-tag">Python</span><span class="proj-tech-tag">OpenCV</span><span class="proj-tech-tag">TensorFlow</span><span class="proj-tech-tag">Image Processing</span></div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="proj-num">03</div>
+      <div class="proj-middle">
+        <div class="proj-type-tag">Data Analytics · Mini Project</div>
+        <div class="proj-title">Missing Value Imputation Analysis</div>
+        <div class="proj-desc">Analyzed datasets with missing entries and applied statistical imputation (mean, median, mode). Visualized before/after distributions to demonstrate each strategy's mathematical impact on data quality.</div>
+        <div class="proj-tech-wrap"><span class="proj-tech-tag">Python</span><span class="proj-tech-tag">Matplotlib</span><span class="proj-tech-tag">Seaborn</span><span class="proj-tech-tag">Statistics</span></div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="proj-num">04</div>
+      <div class="proj-middle">
+        <div class="proj-type-tag">Research · Sustainability</div>
+        <div class="proj-title">Solar Energy in the Automobile Industry</div>
+        <div class="proj-desc">Explored integration of solar energy systems into vehicles to enhance sustainability and reduce fuel dependence. Analyzed feasibility, energy efficiency gains, cost tradeoffs, and long-term viability.</div>
+        <div class="proj-tech-wrap"><span class="proj-tech-tag">Research</span><span class="proj-tech-tag">Excel</span><span class="proj-tech-tag">Data Analysis</span><span class="proj-tech-tag">Sustainability</span></div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-header rv">
+    <div class="exp-big">INTERNSHIP<br>EXPERIENCE</div>
+  </div>
+  <div class="exp-grid">
+
+    <div class="exp-card rv">
+      <div class="exp-card-date">Aug 2025 — Oct 2025 <span class="exp-card-date-badge">Latest</span></div>
+      <h3>HR + Marketing Intern</h3>
+      <div class="org">Holograd · Team of 12 · 2 Months</div>
+      <p>Worked at the intersection of HR operations and marketing strategy. Supported recruitment, internal communications, and campaign execution in a 12-person cross-functional team.</p>
+    </div>
+
+    <div class="exp-card rv rd1">
+      <div class="exp-card-date">Oct 2023</div>
+      <h3>AWS Cloud Intern</h3>
+      <div class="org">ICT Academy · 1 Month</div>
+      <p>Hands-on experience with AWS services — EC2, S3, IAM. Applied cloud computing concepts to real infrastructure tasks and earned an official completion certificate from ICT Academy.</p>
+    </div>
+
+    <div class="exp-card rv rd2">
+      <div class="exp-card-date">Aug — Sep 2023</div>
+      <h3>Data Analytics Intern</h3>
+      <div class="org">ICT Academy · 1 Month</div>
+      <p>Worked on real-world datasets using Python and Excel for data cleaning, analysis, and visualization. Applied statistical techniques to generate actionable business insights.</p>
+    </div>
+
+    <div class="exp-card rv rd3">
+      <div class="exp-card-date">May — Aug 2023</div>
+      <h3>Artificial Intelligence Intern</h3>
+      <div class="org">Project Internship · 3 Months</div>
+      <p>Completed a project-based AI internship covering data preprocessing, model building, and evaluation. Collaborated on classification and prediction models using real datasets.</p>
+    </div>
+
+    <div class="exp-card rv">
+      <div class="exp-card-date">Sep — Dec 2022</div>
+      <h3>Template Designer</h3>
+      <div class="org">Green Bhumi · Team of 4 · 3 Months</div>
+      <p>Designed visual templates and digital content for an environmental-focused NGO. Maintained consistent brand identity across all print and digital materials in a small creative team.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="edu-header-row rv">
+    <div class="edu-big">EDUCATION &amp;<br>QUALIFICATIONS</div>
+    <p class="edu-note">Engineering foundations and business acumen — built at Dr. A.P.J. Abdul Kalam Technical University.</p>
+  </div>
+  <div class="edu-timeline">
+    <div class="edu-row rv"><div class="edu-year">2024<br>—<br>2026</div><div class="edu-right"><h3>Master of Business Administration (MBA)</h3><div class="uni">Dr. A.P.J. Abdul Kalam Technical University, Lucknow</div><span class="edu-badge">IT & Marketing</span></div></div>
+    <div class="edu-row rv rd1"><div class="edu-year">2020<br>—<br>2024</div><div class="edu-right"><h3>Bachelor of Technology (B.Tech)</h3><div class="uni">Dr. A.P.J. Abdul Kalam Technical University</div><span class="edu-badge">Computer Science</span></div></div>
+    <div class="edu-row rv rd2"><div class="edu-year">2019<br>—<br>2020</div><div class="edu-right"><h3>Higher Secondary (12th)</h3><div class="uni">Central Board of Secondary Education (CBSE)</div><span class="edu-badge">Science Stream</span></div></div>
+    <div class="edu-row rv rd3"><div class="edu-year">2017<br>—<br>2018</div><div class="edu-right"><h3>Secondary School (10th)</h3><div class="uni">Central Board of Secondary Education (CBSE)</div><span class="edu-badge">CBSE Board</span></div></div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="ach-big rv">CERTIFICATES &amp;<br>ACHIEVEMENTS</div>
+  <div class="ach-grid">
+    <div class="ach-card rv"><div class="ach-icon">🏅</div><h4>Campus Ambassador</h4><p>Pregrad — represented and promoted the platform on campus, building a student community.</p></div>
+    <div class="ach-card rv rd1"><div class="ach-icon">🐍</div><h4>Python Certification</h4><p>Guvi — certified in Python programming covering core language, data types, and scripting.</p></div>
+    <div class="ach-card rv rd2"><div class="ach-icon">☁️</div><h4>AWS Course Completion</h4><p>Great Learning — completed AWS cloud fundamentals and earned a course completion certificate.</p></div>
+    <div class="ach-card rv rd3"><div class="ach-icon">📋</div><h4>Internship Completions</h4><p>ICT Academy & Pregrad — official certificates for completing AI and data analytics programs.</p></div>
+    <div class="ach-card rv"><div class="ach-icon">📊</div><h4>Advanced Excel</h4><p>College — Advanced Excel for Business Analytics with pivot tables, dashboards, and formulas.</p></div>
+    <div class="ach-card rv rd1"><div class="ach-icon">🚀</div><h4>Soft Skills & Entrepreneurship</h4><p>College — certificates for Soft Skills Club and the Entrepreneurial Ecosystem in India program.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-left rv">
+      <div class="contact-big">LET'S<br>WORK<br><span class="lime">TOGETHER</span></div>
+      <p class="contact-sub">Open to roles in digital marketing, data analytics, product management, and tech-enabled business strategy. Based in Ghaziabad — open to remote.</p>
+      <div class="c-pill-links">
+        <a href="mailto:ashutoshy8001@gmail.com" class="c-pill">
+          <div class="c-pill-ico">✉</div>
+          <div class="c-pill-text"><span class="c-pill-sublabel">Email</span>ashutoshy8001@gmail.com</div>
+        </a>
+        <a href="tel:+918948308001" class="c-pill">
+          <div class="c-pill-ico">📞</div>
+          <div class="c-pill-text"><span class="c-pill-sublabel">Phone</span>+91 8948308001</div>
+        </a>
+        <a href="tel:+918840560368" class="c-pill">
+          <div class="c-pill-ico">📱</div>
+          <div class="c-pill-text"><span class="c-pill-sublabel">Alternate</span>+91 8840560368</div>
+        </a>
+        <a href="mailto:ashutoshyadav.mba24_26a@its.edu.in" class="c-pill">
+          <div class="c-pill-ico">🎓</div>
+          <div class="c-pill-text"><span class="c-pill-sublabel">Academic Email</span>ashutoshyadav.mba24_26a@its.edu.in</div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrap rv rd1">
+      <form class="c-form" id="cForm" onsubmit="handleSend(event)">
+        <div class="f-row">
+          <div class="f-grp"><label>First Name</label><input type="text" placeholder="Rahul" required/></div>
+          <div class="f-grp"><label>Last Name</label><input type="text" placeholder="Sharma"/></div>
+        </div>
+        <div class="f-grp"><label>Email Address</label><input type="email" placeholder="you@company.com" required/></div>
+        <div class="f-grp">
+          <label>Opportunity Type</label>
+          <select>
+            <option>Full-time Role</option>
+            <option>Internship</option>
+            <option>Freelance / Project</option>
+            <option>Collaboration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="f-grp"><label>Your Message</label><textarea placeholder="Tell me about the role or project…" required></textarea></div>
+        <button type="submit" class="f-submit">Send Message ↗</button>
+        <div class="f-success" id="fSuccess">✓ Message sent — I'll reply within 24 hours!</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">ASHUTOSH<span>.</span></div>
+  <div class="footer-note">© 2026 · MBA Candidate · AKTU Lucknow</div>
+</footer>
+
+<script>
+// MARQUEE BUILD
+(function(){
+  const items=['Data Analytics','Python','AWS Cloud','Digital Marketing','Power BI','AI / ML','MSSQL','Brand Strategy','Market Research','Machine Learning','Business Strategy','Data Visualization'];
+  const track=document.getElementById('mq');
+  const doubled=[...items,...items];
+  doubled.forEach(t=>{
+    const d=document.createElement('div');d.className='marquee-item';
+    d.innerHTML=`<span class="marquee-dot"></span>${t}`;
+    track.appendChild(d);
+  });
+})();
+
+// HAMBURGER
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+document.querySelectorAll('.mob-menu a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// ACTIVE NAV HIGHLIGHT
+window.addEventListener('scroll',()=>{
+  let cur='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.style.color='';a.style.fontWeight='';
+    if(a.getAttribute('href')==='#'+cur){a.style.color='var(--ink)';a.style.fontWeight='800'}
+  });
+},{passive:true});
+
+// SKILL PILL HOVER TOGGLE
+document.querySelectorAll('.sk-pill').forEach(p=>{
+  p.addEventListener('click',()=>p.classList.toggle('prime'));
+});
+
+// CONTACT FORM
+function handleSend(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-submit');
+  btn.textContent='Sending…';btn.disabled=true;
+  setTimeout(()=>{
+    e.target.reset();btn.style.display='none';
+    document.getElementById('fSuccess').style.display='block';
+  },1200);
+}
+
+// PROJECT ROW CLICK (placeholder)
+document.querySelectorAll('.proj-row').forEach(row=>{
+  row.addEventListener('click',()=>{});
+});
+</script>
+</body>
+</html>
