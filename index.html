@@ -39,7 +39,18 @@
     @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:28px}.hero{padding-top:75px}.visual{min-height:390px}.dash-card{max-width:390px}.service-grid,.project-grid{grid-template-columns:repeat(2,1fr)}.about-grid{grid-template-columns:1fr;gap:28px}.process-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:start;flex-direction:column}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
     @media(max-width:640px){.container{width:min(100% - 30px,var(--max))}nav{min-height:66px}.menu-toggle{display:block}.nav-links{display:none;position:absolute;left:15px;right:15px;top:65px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#0c111c;flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links a{padding:11px 7px}.nav-cta{display:block;text-align:center;margin-top:8px}.hero{padding:65px 0 55px;min-height:unset}h1{font-size:clamp(2.85rem,14vw,4.3rem)}.hero-copy{font-size:.98rem}.visual{min-height:350px}.orb{width:250px;height:250px}.dash-card{padding:17px;transform:none}.float-tag{right:0;bottom:15px}.metric strong{font-size:1.25rem}section{padding:62px 0}.service-grid,.project-grid{grid-template-columns:1fr}.service{min-height:unset}.project-art{height:165px}.stats{grid-template-columns:1fr 1fr}.stat{padding:18px 15px}.process-grid{grid-template-columns:1fr 1fr;gap:10px}.process{padding:16px 12px}.contact-box{padding:27px 20px}.micro-proof{gap:12px}.footer-inner{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+  .profile-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 3px solid #8cb5ff;
+  box-shadow: 0 0 28px rgba(121, 169, 255, 0.2);
+  display: block;
+}
   </style>
+  
 </head>
 <body>
   <div class="nav-wrap">
@@ -131,12 +142,11 @@
         <div class="notice">These are portfolio concept projects, not claims of completed client campaigns or real campaign results. Replace or supplement them with your own work, screenshots and verified metrics as you build them.</div>
       </div>
     </section>
-
     <section id="about">
       <div class="container">
         <div class="section-head reveal"><div><div class="kicker">03 / A little about me</div><h2>Curious by nature.<br>Analytical by habit.</h2></div></div>
         <div class="about-grid">
-          <div class="about-panel reveal"><div class="initials">AY.</div><h3>Ashutosh Yadav</h3><p>Performance Marketing · Digital Marketing · Analytics</p>
+          <div class="about-panel reveal"><img src="profile.jpeg" alt="Ashutosh Yadav" class="profile-photo"><h3>Ashutosh Yadav</h3><p>Performance Marketing · Digital Marketing · Analytics</p>
             <div class="edu-list">
               <div class="edu-item"><strong>MBA — IT & Marketing</strong><span>Dr. A. P. J. Abdul Kalam Technical University · 2024–2026</span></div>
               <div class="edu-item"><strong>B.Tech — Computer Science</strong><span>Dr. A. P. J. Abdul Kalam Technical University · 2020–2024</span></div>
